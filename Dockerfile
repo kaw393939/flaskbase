@@ -1,6 +1,6 @@
 FROM python:3.8-buster
 COPY requirements.txt .
-ENV FLASK_APP=flaskApp/app.py
+ENV FLASK_APP=flaskr
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development
 ENV PATH="/home/myuser/.local/bin:${PATH}"
