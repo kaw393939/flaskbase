@@ -55,7 +55,6 @@ def create_app(test_config=None):
 
 app = create_app()
 
-
 @app.context_processor
 def inject_hello_world():
     message = "hello world"
@@ -73,3 +72,9 @@ def utility_processor():
 def inject_deployment_environment():
     # whatever else was in this function
     return dict(year)
+=======
+@app.errorhandler(404)
+# inbuilt function which takes error as parameter
+def not_found(e):
+    # defining function
+    return render_template("404.html")
