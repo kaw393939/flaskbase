@@ -12,7 +12,7 @@ def test_index(client, auth):
     response = client.get("/")
     assert b"test title" in response.data
     assert b"by test on 2018-01-01" in response.data
-    assert b"test\nbody" in response.data
+    assert b"test\nbody" in response.data  # for some reason this is messing with pytest and idk how to fix it
     assert b'href="/1/update"' in response.data
 
 

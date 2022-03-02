@@ -4,8 +4,8 @@ from os import getenv
 import datetime
 
 
-bp = Blueprint('simple_pages', __name__,
-                        template_folder='templates',static_folder='static')
+bp = Blueprint('simple_pages', __name__, template_folder='templates', static_folder='static')
+
 
 @bp.route('/page/<page>')
 def show(page):
@@ -19,6 +19,7 @@ def show(page):
 def inject_deployment_environment():
     deployment_environment = getenv('FLASK_ENV', None)
     return dict(deployment_environment=deployment_environment)
+
 
 @bp.context_processor
 def inject_deployment_environment():

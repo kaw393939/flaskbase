@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flaskApp import db, auth, blog, simple_pages
 
+
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
@@ -22,6 +23,7 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
     @app.route("/hello")
     def hello():
         return "Hello, World!"
@@ -41,4 +43,25 @@ def create_app(test_config=None):
         port = int(os.environ.get("PORT", 5000))
         app.run(host='0.0.0.0', port=port)
     return app
+
+
 app = create_app()
+
+
+@app.context_processor
+def inject_hello_world():
+    message = "hello world"
+    return dict(myMessage=message)
+
+
+@app.context_processor
+def utility_processor():
+    def format_price(amount, currency='$'):
+        return '{1}{0:.2f}'.format(amount, currency)
+    return dict(format_price=format_price)
+
+
+# @app.context_processor
+# def inject_deployment_environment():
+    # whatever else was in this function
+    # return dict(year)

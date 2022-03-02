@@ -1,11 +1,12 @@
-setuptools
+setuptools~=60.9.3
 wheel
-Flask
+Flask~=2.0.3
 pytest-cov
-pytest
+pytest~=7.0.1
 pycodestyle
 pytest-pylint
 gunicorn
 uwsgi
-Jinja2
-Werkzeug
+Jinja2~=3.0.3
+Werkzeug~=2.0.3
+click~=8.0.4

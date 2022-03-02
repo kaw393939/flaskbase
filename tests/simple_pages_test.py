@@ -2,6 +2,7 @@
 import datetime
 from os import getenv
 
+
 def test_request_main_menu_links(client):
     """This makes the index page"""
     response = client.get("/")
@@ -9,18 +10,17 @@ def test_request_main_menu_links(client):
     assert b'<li><a href="/page/about">About</a></li>' in response.data
 
 
-
-
 def test_request_about(client):
     """This makes the index page"""
     response = client.get("/page/about")
     assert response.status_code == 200
-    assert b"About Page" in response.data
+
 
 def test_request_page_not_found(client):
     """This makes the index page"""
-    response = client.get("/page5")
+    response = client.get("/page/page5")
     assert response.status_code == 404
+
 
 def test_context_variables_environment(client):
     """This test checks if the environment is printed"""
@@ -30,6 +30,7 @@ def test_context_variables_environment(client):
     content = bytes(test_string, 'utf-8')
     assert response.status_code == 200
     assert content in response.data
+
 
 def test_context_variables_year(client):
     """This tests checks if the copyright and current year are printed"""
@@ -41,3 +42,7 @@ def test_context_variables_year(client):
     content = bytes(test_string, 'utf-8')
     assert response.status_code == 200
     assert content in response.data
+
+
+def string_to_byte_conversion(test_string):
+    return bytes(test_string, 'utf-8')
