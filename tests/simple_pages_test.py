@@ -1,6 +1,4 @@
 """This test the homepage"""
-import datetime
-from os import getenv
 
 
 def test_request_main_menu_links(client):
@@ -8,6 +6,7 @@ def test_request_main_menu_links(client):
     response = client.get("/")
     assert response.status_code == 200
     assert b'<li><a href="/page/about">About</a></li>' in response.data
+    assert b'<li><a href="/page/welcome">Welcome</a></li>' in response.data
 
 
 def test_request_about(client):
@@ -16,11 +15,17 @@ def test_request_about(client):
     assert response.status_code == 200
 
 
+def test_request_welcome(client):
+    """This makes the index page"""
+    response = client.get("/page/welcome")
+    assert response.status_code == 200
+    assert b"Welcome Page" in response.data
+
+
 def test_request_page_not_found(client):
     """This makes the index page"""
     response = client.get("/page/page5")
     assert response.status_code == 404
-
 
 def test_context_variables_environment(client):
     """This test checks if the environment is printed"""

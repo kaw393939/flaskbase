@@ -1,6 +1,9 @@
 import os
 from flask import Flask
+from flask import render_template
+
 from flaskApp import db, auth, blog, simple_pages
+from flaskApp.context_processors import utility_text_processors
 
 
 def create_app(test_config=None):
@@ -27,6 +30,7 @@ def create_app(test_config=None):
     @app.route("/hello")
     def hello():
         return "Hello, World!"
+
     # register the database commands
     db.init_app(app)
     # apply the blueprints to the app
@@ -34,11 +38,15 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     app.register_blueprint(simple_pages.bp)
 
+
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
     # app.route, while giving the blog blueprint a url_prefix, but for
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="index")
+    app.context_processor(utility_text_processors)
+
+
     if __name__ == '__main__':
         port = int(os.environ.get("PORT", 5000))
         app.run(host='0.0.0.0', port=port)
@@ -61,7 +69,7 @@ def utility_processor():
     return dict(format_price=format_price)
 
 
-# @app.context_processor
-# def inject_deployment_environment():
+@app.context_processor
+def inject_deployment_environment():
     # whatever else was in this function
-    # return dict(year)
+    return dict(year)
