@@ -38,7 +38,7 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     app.register_blueprint(simple_pages.bp)
     bootstrap = Bootstrap5(app)
-
+    app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'flatly'
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
